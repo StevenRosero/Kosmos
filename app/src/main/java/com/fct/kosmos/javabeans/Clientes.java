@@ -11,8 +11,6 @@ public class Clientes implements Serializable {
     private String nombreEmpresa;
     private String contacto;
     private int telefono;
-    private String direccion;
-    private Date fecha;
     private transient Bitmap imagen;
 
     public Clientes(){
@@ -48,22 +46,6 @@ public class Clientes implements Serializable {
 
     public void setTelefono(int telefono) {
         this.telefono = telefono;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
     }
 
     public Bitmap getImagen() {
