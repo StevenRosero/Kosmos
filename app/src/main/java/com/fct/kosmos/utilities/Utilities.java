@@ -11,12 +11,8 @@ public class Utilities {
     public static final String CAMPO_CANTIDAD="cantidad";
     public static final String CAMPO_IMAGEN="imagen";
 
-    public static final String CREAR_TABLA_PRODUCTOS="CREATE TABLE" +
-            ""+TABLA_PRODUCTOS+"("+CAMPO_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            +CAMPO_NOMBRE+" TEXT,"+CAMPO_DESCRIPCION+" TEXT"+CAMPO_PRECIO +
-            "INTEGER"+CAMPO_CANTIDAD + "INTEGER)";
-
-
-
+    public static final String CREAR_TABLA_PRODUCTOS = "CREATE TABLE" +
+            ""+TABLA_PRODUCTOS+" ("+CAMPO_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT, " +CAMPO_NOMBRE+" TEXT,"
+            +CAMPO_DESCRIPCION+" TEXT"+CAMPO_PRECIO + "INTEGER"+CAMPO_CANTIDAD + "INTEGER)";
 
 }
