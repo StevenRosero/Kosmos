@@ -13,7 +13,7 @@ public class Utilities {
     public static final String CAMPO_FECHA="fecha";
     public static final String CAMPO_CANTIDAD="cantidad";
     public static final String CAMPO_IMAGEN="imagen";
-    public static final String CAMPO_ID_Cliente="idCliente";
+
 
     //REFERENCIA AL ALMACENAMIENTO DE LOS CODIGOS QR
     //Creación de la tabla PRODUCTOS
@@ -21,14 +21,10 @@ public class Utilities {
             ""+TABLA_PRODUCTOS+" ("+CAMPO_ID_PRO+ " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, "
             +CAMPO_NOMBRE+" TEXT NOT NULL, "
             +CAMPO_DESCRIPCION+" TEXT NOT NULL, "
-            +CAMPO_PRECIO + "INTEGER NOT NULL, "
-            +CAMPO_FECHA + "DATE NOT NULL, "
+            +CAMPO_PRECIO + "FLOAT NOT NULL, "
+            +CAMPO_FECHA + "TIMESTAMP NOT NULL, "
             +CAMPO_CANTIDAD + "INTEGER NOT NULL, "
-            +CAMPO_IMAGEN+ "BLOB NOT NULL)"
-            +CAMPO_ID_Cliente+ "INTEGER)";
-    //En caso de que no se relacionen bien las claves foráneas este es otro método
-    //+CAMPO_ID_Cliente+ "FOREIGN KEY NOT NULL UNIQUE)";
-
+            +CAMPO_IMAGEN+ "BLOB)";
 
 
     //Constantes campos tabla clientes
@@ -46,8 +42,9 @@ public class Utilities {
             +CAMPO_NOMBRE_EMPRESA+" TEXT NOT NULL, "
             +CAMPO_CONTACTO+" INTEGER NOT NULL, "
             +CAMPO_TELEFONO+ "INTEGER NOT NULL, "
-            +CAMPO_IMAGEN_LOGO+ "BLOB NOT NULL, "
-            +CAMPO_ID_PRODUCTO+ "INTEGER)";
+            +CAMPO_IMAGEN_LOGO+ "BLOB, "
+            +CAMPO_ID_PRODUCTO+ "INTEGER,"
+            +"FOREIGN KEY("+CAMPO_ID_PRODUCTO+") REFERENCES TABLA_PRODUCTOS("+CAMPO_ID_PRO+")";
     //En caso de que no se relacionen bien las claves foráneas este es otro método
     //+CAMPO_ID_PRODUCTO+ "FOREIGN KEY NOT NULL UNIQUE)";
 
