@@ -9,7 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class UtilFecha {
+public class Util {
 
     public static String formatearFecha(Date fecha) {
 
