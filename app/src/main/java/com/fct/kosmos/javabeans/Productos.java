@@ -17,6 +17,25 @@ public class Productos implements Serializable {
 
     public Productos() {}
 
+    public Productos(String nombre, String descripcion, float precio, Date fecha, int cantidad, Bitmap imagen) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.fecha = fecha;
+        this.cantidad = cantidad;
+        this.imagen = imagen;
+    }
+
+    public Productos(long id, String nombre, String descripcion, float precio, Date fecha, int cantidad, Bitmap imagen) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.fecha = fecha;
+        this.cantidad = cantidad;
+        this.imagen = imagen;
+    }
+
     public long getId() {
         return id;
     }
