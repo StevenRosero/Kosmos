@@ -6,4 +6,13 @@
     <string name="title_notifications">Notifications</string>
     <string name="modificar">Modificar</string>
     <string name="eliminar">Eliminar</string>
+    <string name="bt_alta_eventos">Alta Productos</string>
+    <string name="lb_nombre">Nombre</string>
+    <string name="lb_descripcion">Descripcion</string>
+    <string name="lb_cantidad">Cantidad</string>
+    <string name="lb_precio">Precio</string>
+    <string name="lb_fecha">Fecha</string>
+    <string name="lb_alta">Confirmar</string>
+    <string name="lb_cancelar">Cancelar</string>
+    <string name="guardar">Guardar</string>
 </resources>
