@@ -93,7 +93,7 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper {
     }
 
     // Llamada a lista de Productos
-    public List<Productos> getProductos() {
+    public List<Productos> getProductosList() {
 
         final String[] COLUMNAS = {_ID, Utilities.CAMPO_NOMBRE, Utilities.CAMPO_DESCRIPCION, Utilities.CAMPO_PRECIO,
                 Utilities.CAMPO_FECHA,Utilities.CAMPO_CANTIDAD, Utilities.CAMPO_IMAGEN};
