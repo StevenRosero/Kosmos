@@ -15,4 +15,5 @@
     <string name="lb_alta">Confirmar</string>
     <string name="lb_cancelar">Cancelar</string>
     <string name="guardar">Guardar</string>
+    <string name="mensaje_precio">Debes introducir el precio</string>
 </resources>

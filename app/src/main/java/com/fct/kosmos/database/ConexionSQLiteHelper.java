@@ -22,9 +22,7 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper {
     // Versión de la base de datos
     private static final int DATABASE_VERSION = 1;
     // Nombre de la base de datos
-    private static final String DATABASE_NAME = "kosmos_database";
-    //Carga inicial para la comprobación de la tabla Productos
-    private ArrayList<Productos> cargaInicial = new ArrayList<>();
+    private static final String DATABASE_NAME = "kosmosdb.db";
 
     //Definición del SQLiteHelper con version y nombre
     public ConexionSQLiteHelper(Context context) {
@@ -35,14 +33,14 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(Utilities.CREAR_TABLA_PRODUCTOS);
-        db.execSQL(Utilities.CREAR_TABLA_CLIENTES);
+        //db.execSQL(Utilities.CREAR_TABLA_CLIENTES);
     }
 
     // Arranque de la base de datos
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+Utilities.TABLA_PRODUCTOS);
-        db.execSQL("DROP TABLE IF EXISTS "+Utilities.TABLA_CLIENTES);
+       // db.execSQL("DROP TABLE IF EXISTS "+Utilities.TABLA_CLIENTES);
         onCreate(db);
     }
 

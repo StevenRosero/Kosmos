@@ -1,8 +1,6 @@
 package com.fct.kosmos.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -26,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private List<Productos> productos;
     private ProductosAdapter adapter;
 
+    ListView lvProductos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         productos = db.getProductosList();
 
         // Conectar el List View del main_activity al adapter
-        ListView lvProductos = findViewById(R.id.lvProductos);
+        lvProductos = findViewById(R.id.lvProductos);
         adapter = new ProductosAdapter(this,
                 R.layout.item_productos, productos);
         lvProductos.setAdapter(adapter);
