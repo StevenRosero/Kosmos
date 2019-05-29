@@ -1,19 +1,25 @@
 <resources>
-    <string name="app_name">Kosmos</string>
-    <string name="title_activity_botton">BottonActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="modificar">Modificar</string>
-    <string name="eliminar">Eliminar</string>
-    <string name="bt_alta_eventos">Alta Productos</string>
-    <string name="lb_nombre">Nombre</string>
-    <string name="lb_descripcion">Descripcion</string>
-    <string name="lb_cantidad">Cantidad</string>
-    <string name="lb_precio">Precio</string>
-    <string name="lb_fecha">Fecha</string>
-    <string name="lb_alta">Confirmar</string>
-    <string name="lb_cancelar">Cancelar</string>
-    <string name="guardar">Guardar</string>
-    <string name="mensaje_precio">Debes introducir el precio</string>
+    <string name="app_name">Kosmo</string>
+
+    <!--                 ITEM_productos.XML                     -->
+    <string name="tv_nombreP_item">Nombre: %s</string>
+    <string name="tv_tipoP_item">Tipo: %s</string>
+    <string name="tv_colorP_item">Color: %s</string>
+    <string name="tv_cantidadP_item">Cantidad: %d</string>
+    <string name="tv_precioP_item">Precio: %.2f</string>
+
+    <!--                 ACTIVITY ALTA                     -->
+    <string name="tv_nombreP_alta">Nombre de Producto:</string>
+    <string name="tv_tipoP_alta">Tipo de Producto:</string>
+    <string name="tv_colorP_alta">Color:</string>
+    <string name="tv_cantidadP_alta">Cantidad:</string>
+    <string name="tv_precioP_alta">Precio:</string>
+    <string name="btn_crear_alta">Crear</string>
+    <string name="btn_cancelar_alta">Cancelar</string>
+    <string name="toast_error_alta">Todos los campos tiene que estar rellenados</string>
+
+    <!--                 ACTIVITY                       -->
+    <string name="clave_producto">PRODUCTO</string>
+
+
 </resources>
