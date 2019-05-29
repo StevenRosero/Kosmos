@@ -6,17 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".activities.AltaProductos">
 
-    <ImageButton
-        android:id="@+id/ibImagen"
+    <ImageView
+        android:id="@+id/ivImagen"
         android:layout_width="112dp"
         android:layout_height="114dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="44dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:background="@mipmap/ic_launcher"
         android:scaleType="fitCenter"
-        android:src="@mipmap/ic_launcher_round"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,16 +26,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:ems="10"
         android:hint="@string/lb_nombre"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ibImagen" />
+        app:layout_constraintTop_toBottomOf="@+id/ivImagen" />
 
     <EditText
         android:id="@+id/etDescripcion"
@@ -137,5 +132,18 @@
         app:layout_constraintStart_toEndOf="@+id/btAlta"
         app:layout_constraintTop_toBottomOf="@+id/etCantidad"
         app:layout_constraintVertical_bias="0.106" />
+
+    <Button
+        android:id="@+id/btnEscogerImagen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etCantidad" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

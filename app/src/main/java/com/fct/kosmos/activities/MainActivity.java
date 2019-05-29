@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_modify_delete_producto, menu);
     }
 
-    @Override
+   /* @Override
     public boolean onContextItemSelected(MenuItem item) {
 
         AdapterView.AdapterContextMenuInfo menuInfo =
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return false;
         }
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

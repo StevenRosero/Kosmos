@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 
 import com.fct.kosmos.javabeans.Productos;
 import com.fct.kosmos.utilities.Util;
@@ -20,9 +21,9 @@ import static android.provider.BaseColumns._ID;
 public class ConexionSQLiteHelper extends SQLiteOpenHelper {
 
     // Versión de la base de datos
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     // Nombre de la base de datos
-    private static final String DATABASE_NAME = "kosmosdb.db";
+    private static final String DATABASE_NAME = "kosmosdb.sqlite";
 
     //Definición del SQLiteHelper con version y nombre
     public ConexionSQLiteHelper(Context context) {
@@ -44,7 +45,7 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // Creación de nuevos Productos
+/*    // Creación de nuevos Productos
     public void nuevoProducto(Productos producto) {
 
         SQLiteDatabase db = getWritableDatabase();
@@ -60,7 +61,7 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper {
 
         db.insertOrThrow(Utilities.TABLA_PRODUCTOS, null, values);
         db.close();
-    }
+    }*/
 
     // Eliminación de Productos
     public void eliminarProductos(Productos producto) {
@@ -83,7 +84,8 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper {
         values.put(Utilities.CAMPO_PRECIO, producto.getPrecio());
         values.put(Utilities.CAMPO_FECHA, Util.formatearFecha(producto.getFecha()));
         values.put(Utilities.CAMPO_CANTIDAD, producto.getCantidad());
-        values.put(Utilities.CAMPO_IMAGEN, Util.getBytes(producto.getImagen()));
+        //
+        // values.put(Utilities.CAMPO_IMAGEN, Util.getBytes(producto.getImagen()));
 
         String[] args = {String.valueOf(producto.getId())};
         db.update(Utilities.TABLA_PRODUCTOS, values, _ID + " = ?", args);
@@ -115,7 +117,7 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper {
                 producto.setFecha(new Date());
             }
             producto.setCantidad(cursor.getInt(5));
-            producto.setImagen(Util.getBitmap(cursor.getBlob(6)));
+            //producto.setImagen(Util.getBitmap(cursor.getBlob(6)));
             productos.add(producto);
         }
 
@@ -125,5 +127,31 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper {
     public List<Productos> getProductos(String busqueda) {
         return null;
     }
+
+
+    public void queryData(String sql){
+        SQLiteDatabase database = getWritableDatabase();
+        database.execSQL(sql);
+    }
+
+    // Prueba nuevos paramatros para las imagenes
+    public void insertNewProducto(String nombre, String descripcion, String precio, String fecha, String cantidad, byte[] imagen){
+        SQLiteDatabase db = getWritableDatabase();
+        String queryInsertSQL = "INSERT INTO productos VALUES(NULL, ?, ?, ?, ?, ?, ?)";
+
+        SQLiteStatement statement = db.compileStatement(queryInsertSQL);
+        statement.clearBindings();
+
+        statement.bindString(1, nombre);
+        statement.bindString(2, descripcion);
+        statement.bindString( 3, precio);
+        statement.bindString(4, fecha);
+        statement.bindString(5, cantidad);
+        statement.bindBlob(6, imagen);
+
+        statement.executeInsert();
+    }
+
+
 
 }

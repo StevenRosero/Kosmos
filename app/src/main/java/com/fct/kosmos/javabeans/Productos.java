@@ -13,11 +13,11 @@ public class Productos implements Serializable {
     private float precio;
     private Date fecha;
     private int cantidad;
-    private transient Bitmap imagen;
+    private byte[] imagen;
 
     public Productos() {}
 
-    public Productos(String nombre, String descripcion, float precio, Date fecha, int cantidad, Bitmap imagen) {
+    public Productos(String nombre, String descripcion, float precio, Date fecha, int cantidad, byte[] imagen) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
@@ -26,7 +26,7 @@ public class Productos implements Serializable {
         this.imagen = imagen;
     }
 
-    public Productos(long id, String nombre, String descripcion, float precio, Date fecha, int cantidad, Bitmap imagen) {
+    public Productos(long id, String nombre, String descripcion, float precio, Date fecha, int cantidad, byte[] imagen) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -84,11 +84,11 @@ public class Productos implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public Bitmap getImagen() {
+    public byte[] getImagen() {
         return imagen;
     }
 
-    public void setImagen(Bitmap imagen) {
+    public void setImagen(byte[] imagen) {
         this.imagen = imagen;
     }
 }

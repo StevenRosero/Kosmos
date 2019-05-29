@@ -5,7 +5,7 @@ import android.provider.BaseColumns;
 
 public class Utilities {
     //Constantes campos tabla productos
-    public static final String TABLA_PRODUCTOS=" producto ¡";
+    public static final String TABLA_PRODUCTOS=" productos ";
     public static final String CAMPO_ID_PRO = BaseColumns._ID;
     public static final String CAMPO_NOMBRE="nombre ";
     public static final String CAMPO_DESCRIPCION="descripcion ";
@@ -14,16 +14,14 @@ public class Utilities {
     public static final String CAMPO_CANTIDAD="cantidad ";
     public static final String CAMPO_IMAGEN="imagen";
 
-
-    //REFERENCIA AL ALMACENAMIENTO DE LOS CODIGOS QR
     //Creación de la tabla PRODUCTOS
     public static final String CREAR_TABLA_PRODUCTOS = "CREATE TABLE" +
-            ""+TABLA_PRODUCTOS+" ("+CAMPO_ID_PRO+ " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, "
+            " "+TABLA_PRODUCTOS+" ("+CAMPO_ID_PRO+ " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, "
             +CAMPO_NOMBRE+" TEXT NOT NULL, "
             +CAMPO_DESCRIPCION+" TEXT NOT NULL, "
-            +CAMPO_PRECIO + " REAL NOT NULL, "
+            +CAMPO_PRECIO + " TEXT NOT NULL, "
             +CAMPO_FECHA + " TEXT NOT NULL, "
-            +CAMPO_CANTIDAD + " INTEGER NOT NULL, "
+            +CAMPO_CANTIDAD + " TEXT NOT NULL, "
             +CAMPO_IMAGEN+ " BLOB)";
 
 /*

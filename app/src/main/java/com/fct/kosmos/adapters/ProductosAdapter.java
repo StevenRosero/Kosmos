@@ -1,6 +1,7 @@
 package com.fct.kosmos.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class ProductosAdapter extends BaseAdapter {
 
+    Bitmap photobmp;
     private LayoutInflater inflater;
     private int idLayout;
     private List<Productos> productos;
@@ -54,7 +56,7 @@ public class ProductosAdapter extends BaseAdapter {
         }
 
         Productos producto = productos.get(posicion);
-        holder.ivImagen.setImageBitmap(producto.getImagen());
+        //holder.ivImagen.setImageBitmap(producto.getImagen());
         holder.tvNombre.setText(producto.getNombre());
         holder.tvCantidad.setText(producto.getCantidad());
         //holder.tvPrecio.setText(Util.formatearMoneda(evento.getPrecio()));
