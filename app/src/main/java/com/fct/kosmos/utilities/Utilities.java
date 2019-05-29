@@ -5,7 +5,7 @@ import android.provider.BaseColumns;
 
 public class Utilities {
     //Constantes campos tabla productos
-    public static final String TABLA_PRODUCTOS=" productos ";
+    public static final String TABLA_PRODUCTOS=" productos";
     public static final String CAMPO_ID_PRO = BaseColumns._ID;
     public static final String CAMPO_NOMBRE="nombre ";
     public static final String CAMPO_DESCRIPCION="descripcion ";
@@ -24,7 +24,7 @@ public class Utilities {
             +CAMPO_CANTIDAD + " TEXT NOT NULL, "
             +CAMPO_IMAGEN+ " BLOB)";
 
-/*
+
 
     //Constantes campos tabla clientes
     public static final String TABLA_CLIENTES="clientes";
@@ -46,6 +46,6 @@ public class Utilities {
             +"FOREIGN KEY("+CAMPO_ID_PRODUCTO+") AUTOINCREMENT REFERENCES TABLA_PRODUCTOS("+CAMPO_ID_PRO+")";
     //En caso de que no se relacionen bien las claves foráneas este es otro método
     //+CAMPO_ID_PRODUCTO+ "FOREIGN KEY NOT NULL UNIQUE)";
-*/
+
 
 }
