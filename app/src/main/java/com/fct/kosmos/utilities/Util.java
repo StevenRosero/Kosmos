@@ -29,13 +29,25 @@ public class Util {
         return sdf.parse(fecha);
     }
 
+    /**
+     * Convierte un Bitmap en un array de bytes
+     * @param bitmap
+     * @return
+     */
+    public static byte[] getBytes(Bitmap bitmap) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
+        return bos.toByteArray();
+    }
 
-    public static byte[] imageViewToByte(ImageView image) {
-        Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        return byteArray;
+    /**
+     * Convierte un array de bytes en un objeto Bitmap
+     * @param bytes
+     * @return
+     */
+    public static Bitmap getBitmap(byte[] bytes) {
+
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
 }

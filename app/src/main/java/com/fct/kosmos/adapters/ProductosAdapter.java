@@ -16,7 +16,6 @@ import java.util.List;
 
 public class ProductosAdapter extends BaseAdapter {
 
-    Bitmap photobmp;
     private LayoutInflater inflater;
     private int idLayout;
     private List<Productos> productos;

@@ -16,6 +16,21 @@ public class Clientes implements Serializable {
     public Clientes(){
     }
 
+    public Clientes(String nombreEmpresa, String contacto, int telefono, Bitmap imagen) {
+        this.nombreEmpresa = nombreEmpresa;
+        this.contacto = contacto;
+        this.telefono = telefono;
+        this.imagen = imagen;
+    }
+
+    public Clientes(long id, String nombreEmpresa, String contacto, int telefono, Bitmap imagen) {
+        this.id = id;
+        this.nombreEmpresa = nombreEmpresa;
+        this.contacto = contacto;
+        this.telefono = telefono;
+        this.imagen = imagen;
+    }
+
     public long getId() {
         return id;
     }

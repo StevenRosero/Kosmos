@@ -5,7 +5,8 @@ android {
     defaultConfig {
         applicationId "com.fct.kosmos"
         minSdkVersion 21
-        targetSdkVersion 26
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -35,6 +36,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     /*Librerías y dependencias importadas para el proyecto:*/
-
+    implementation 'com.android.support:appcompat-v7:28.0.0'
 
 }
