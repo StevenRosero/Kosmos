@@ -15,7 +15,7 @@ import com.fct.kosmos.javabeans.Productos;
 import java.util.List;
 
 public class ProductosAdapter extends BaseAdapter {
-
+    // Adaptador de los métodos para en enlace de los layout. En un principio solo de testeo por comprobar la Entrada/Salida del flujo de datos
     private LayoutInflater inflater;
     private int idLayout;
     private List<Productos> productos;
