@@ -4,17 +4,13 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -22,19 +18,22 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
 import com.fct.kosmos.R;
-import com.fct.kosmos.database.ConexionSQLiteHelper;
-import com.fct.kosmos.javabeans.Productos;
-import com.fct.kosmos.utilities.Util;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.text.ParseException;
 
 import static com.fct.kosmos.utilities.Util.imageViewToByte;
 
 public class AltaProductos extends Activity  {
 
+    //APROVECHAR DE AQUI:
+            /*
+                -ACCESO A LAS FOTOS
+                -LAYOUTS
+                -BTN_CANCELAR: ON BACK PRESSED
+                -METODOS DE LIMPIAR PARÁMETROS EN INSERTAR
+                -COMPROBACIÓN DE LOS PARÁMETROS INTRODUCIDOS
+             */
     private static final int FOTO_PRODUCTO = 1;
     private String accion;
     private long idProducto;

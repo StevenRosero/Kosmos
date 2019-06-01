@@ -7,14 +7,9 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.fct.kosmos.R;
-import com.fct.kosmos.adapters.ProductosAdapter;
-import com.fct.kosmos.database.ConexionSQLiteHelper;
-import com.fct.kosmos.javabeans.Productos;
-import com.fct.kosmos.utilities.Util;
 
 import java.util.List;
 
