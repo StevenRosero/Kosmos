@@ -43,9 +43,10 @@ public class ProductosAdapter extends BaseAdapter {
             convertView = inflater.inflate(idLayout, null);
 
             holder = new ViewHolder();
-            holder.ivImagen = convertView.findViewById(R.id.ivImagen);
-            holder.tvNombre = convertView.findViewById(R.id.tvNombre);
-            holder.tvCantidad = convertView.findViewById(R.id.tvCantidad);
+            //Meterlo ya cuando se cree el layout
+            /*holder.ivImagen = convertView.findViewById(R.id.ivImagenProducto);
+            holder.tvNombre = convertView.findViewById(R.id.tvNombreProducto);
+            holder.tvCantidad = convertView.findViewById(R.id.tvCantidadProducto);*/
 
             convertView.setTag(holder);
         }
@@ -55,10 +56,9 @@ public class ProductosAdapter extends BaseAdapter {
         }
 
         Productos producto = productos.get(posicion);
-        //holder.ivImagen.setImageBitmap(producto.getImagen());
+        holder.ivImagen.setImageBitmap(producto.getImagen());
         holder.tvNombre.setText(producto.getNombre());
         holder.tvCantidad.setText(producto.getCantidad());
-        //holder.tvPrecio.setText(Util.formatearMoneda(evento.getPrecio()));
 
         return convertView;
     }

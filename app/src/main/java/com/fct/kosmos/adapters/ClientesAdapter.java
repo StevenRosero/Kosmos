@@ -29,8 +29,6 @@ public class ClientesAdapter extends BaseAdapter {
     static class ViewHolder {
         ImageView ivImagen;
         TextView tvNombreEmpresa;
-        TextView tvContacto;
-        TextView tvTelefono;
     }
 
     @Override
@@ -42,9 +40,10 @@ public class ClientesAdapter extends BaseAdapter {
             convertView = inflater.inflate(idLayout, null);
 
             holder = new ProductosAdapter.ViewHolder();
-            holder.ivImagen = convertView.findViewById(R.id.ivImagen);
-            holder.tvNombre = convertView.findViewById(R.id.tvNombre);
-            //holder.tvCantidad = convertView.findViewById(R.id.tvCantidad);
+            //Establecer estos parámetros cuando creemos el layout
+            //holder.ivImagen = convertView.findViewById(R.id.ivImagenEmpresa);
+            //holder.tvNombre = convertView.findViewById(R.id.tvNombreContacto);
+
 
             convertView.setTag(holder);
         }
