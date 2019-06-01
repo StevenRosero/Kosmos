@@ -22,7 +22,7 @@ import static android.provider.BaseColumns._ID;
 public class ConexionSQLiteHelper extends SQLiteOpenHelper {
 
     // Versión de la base de datos
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
     // Nombre de la base de datos
     private static final String DATABASE_NAME = "kosmosdb.db";
 
