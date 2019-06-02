@@ -25,7 +25,7 @@
         android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -35,7 +35,7 @@
         android:textColor="#5689D3"
         android:textColorHighlight="#5689D3"
         android:textColorHint="#5689D3" />
-
+    <EditText
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
@@ -92,4 +92,4 @@
         app:layout_constraintStart_toStartOf="@+id/password"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

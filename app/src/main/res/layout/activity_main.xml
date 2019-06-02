@@ -18,4 +18,4 @@
         android:src="@drawable/logoo" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
