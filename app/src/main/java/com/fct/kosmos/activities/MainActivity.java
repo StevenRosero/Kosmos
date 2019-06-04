@@ -1,10 +1,10 @@
 package com.fct.kosmos.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.fct.kosmos.R;
 
@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent homeIntent = new Intent(MainActivity.this, LoginActivity.class);
+                Intent homeIntent = new Intent(MainActivity.this, WelcomeActivity.class);
                 startActivity(homeIntent);
                 finish();
             }

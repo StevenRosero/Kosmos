@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.viewpager.widget.PagerAdapter;
 
+
 public class MyPagerAdapter extends PagerAdapter {private LayoutInflater inflater;
     private int[]layouts;
     private Context context;
