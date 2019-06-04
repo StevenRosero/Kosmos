@@ -2,18 +2,20 @@ package com.fct.kosmos.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
-import com.fct.kosmos.HomeLogInOk;
+import com.fct.kosmos.HomeLogIn;
 import com.fct.kosmos.R;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -21,7 +23,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
@@ -44,6 +45,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mAuth = FirebaseAuth.getInstance();
 
         //asignar los valores de las variables
         nombreUsuario = findViewById(R.id.etId);
@@ -52,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         btnRegistro = findViewById(R.id.btnAcceso2);
 
         activityRegistro = new Intent(this, RegisterActivity.class);
-        homeActivity = new Intent(this, HomeLogInOk.class);
+        homeActivity = new Intent(this, HomeLogIn.class);
         restart = new Intent(this, LoginActivity.class);
 
         //gOOGLE
@@ -64,7 +66,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        updateUI(account);
 
         btnAcceso.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,14 +80,17 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 //missPass.setVisibility(View.INVISIBLE);
 
 
-                final String idUsuario = nombreUsuario.getText().toString();
-                final String contraseniaUsuario = contraseña.getText().toString();
+                final String idUsuario = nombreUsuario.getText().toString().trim();
+                final String contraseniaUsuario = contraseña.getText().toString().trim();
+
+
 
                 if (idUsuario.isEmpty() || contraseniaUsuario.isEmpty()) {
                     showMessage("Verifica los datos introducidos");
                     //barraProgreso.setVisibility(View.INVISIBLE);
                     btnAcceso.setVisibility(View.VISIBLE);
                     btnRegistro.setVisibility(View.VISIBLE);
+                    acceder(idUsuario, contraseniaUsuario);
                 } else {
                     acceder(idUsuario, contraseniaUsuario);
                 }
@@ -117,7 +125,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     private void actualizarUsuario() {
-        FirebaseUser user = mAuth.getCurrentUser();
         startActivity(homeActivity);
         finish();
     }
@@ -135,7 +142,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
     private void iniciarDeNuevo() {
-        startActivity(homeActivity);
+        startActivity(restart);
         finish();
     }
 

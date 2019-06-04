@@ -1,32 +1,49 @@
 package com.fct.kosmos;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.view.View;
+import android.support.v4.view.GravityCompat;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.MenuItem;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+
+
+import android.content.Intent;
+import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
+
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-
-import androidx.core.view.GravityCompat;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
-import com.google.android.material.navigation.NavigationView;
+import com.fct.kosmos.activities.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class HomeLogInOk extends AppCompatActivity
+
+public class HomeLogIn extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     FirebaseUser usuarioActual;
@@ -40,11 +57,7 @@ public class HomeLogInOk extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_log_in_ok);
-
-        updateNavCabecero();
-
-
+        setContentView(R.layout.activity_home_log_in);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -67,7 +80,12 @@ public class HomeLogInOk extends AppCompatActivity
         //Init Firebase
         mAuth = FirebaseAuth.getInstance();
         usuarioActual = mAuth.getCurrentUser();
+
+        updateNavCabecero();
+
+
     }
+
     private void updateNavCabecero() {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -97,7 +115,7 @@ public class HomeLogInOk extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home_log_in_ok, menu);
+        getMenuInflater().inflate(R.menu.home_log_in, menu);
         return true;
     }
 
@@ -133,7 +151,9 @@ public class HomeLogInOk extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            Intent backSLogIN = new Intent(this, LoginActivity.class);
+            startActivity(backSLogIN);
+            finish();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".HomeLogInOk"
-            android:label="@string/title_activity_home_log_in_ok"
+            android:name=".HomeLogIn"
+            android:label="@string/title_activity_home_log_in"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".activities.WelcomeActivity"></activity>
+        <activity android:name=".activities.WelcomeActivity" />
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.MainActivity">
