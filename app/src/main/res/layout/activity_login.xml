@@ -9,18 +9,24 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_width="247dp"
+        android:layout_height="192dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="51dp"
         android:layout_marginLeft="90dp"
-        app:srcCompat="@drawable/logoo" />
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="53dp"
+        app:srcCompat="@drawable/kosmos_text" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="219dp"
-        android:text="Usuario"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="12dp"
+        android:text="@string/tvEmailAcceso"
         android:textColor="#5689D3"
         android:textSize="18sp" />
 
@@ -31,7 +37,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="248dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:textColor="#5689D3"
         android:textColorHighlight="#5689D3"
         android:textColorHint="#5689D3" />
@@ -76,7 +82,32 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="338dp"
         android:ems="10"
-        android:inputType="textPassword"
+        android:inputType="textPassword|textWebPassword"
         android:textColor="#5689D3"
         android:textColorHighlight="#5689D3" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/logInBar"
+        android:layout_width="94dp"
+        android:layout_height="95dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="126dp"
+        android:layout_marginTop="433dp"
+        android:layout_marginEnd="131dp"
+        android:layout_marginBottom="143dp"
+        android:layout_x="185dp"
+        android:layout_y="411dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnAcceso"
+        app:layout_constraintEnd_toEndOf="@+id/btnAcceso"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="@+id/btnAcceso"
+        app:layout_constraintTop_toTopOf="@+id/btnAcceso"
+        app:layout_constraintVertical_bias="0.533"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="loadingColors.json"
+        app:lottie_imageAssetsFolder="assets"
+        app:lottie_loop="true" />
 </RelativeLayout>

@@ -42,10 +42,4 @@ public class Utilities {
             +CAMPO_CONTACTO+" INTEGER NOT NULL, "
             +CAMPO_TELEFONO+ "INTEGER NOT NULL, "
             +CAMPO_IMAGEN_LOGO+ "BLOB NOT NULL)";
-            //+CAMPO_ID_PRODUCTO+ "INTEGER
-            //+"FOREIGN KEY("+CAMPO_ID_PRODUCTO+") AUTOINCREMENT REFERENCES TABLA_PRODUCTOS("+CAMPO_ID_PRO+")";
-    //En caso de que no se relacionen bien las claves foráneas este es otro método
-    //+CAMPO_ID_PRODUCTO+ "FOREIGN KEY NOT NULL UNIQUE)";
-
-
 }

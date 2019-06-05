@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.fct.kosmos.HomeLogIn;
 import com.fct.kosmos.R;
 import com.google.android.gms.auth.api.Auth;
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private EditText nombreUsuario, contraseña;
     private Button btnAcceso, btnRegistro;
+    private LottieAnimationView barraProgreso;
 
     //Conexion a firebase
     private FirebaseAuth mAuth;
@@ -52,6 +54,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         contraseña = findViewById(R.id.etContrasenia);
         btnAcceso = findViewById(R.id.btnAcceso);
         btnRegistro = findViewById(R.id.btnAcceso2);
+        barraProgreso = findViewById(R.id.logInBar);
 
         activityRegistro = new Intent(this, RegisterActivity.class);
         homeActivity = new Intent(this, HomeLogIn.class);
@@ -71,26 +74,22 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         updateUI(account);
 
+        barraProgreso.setVisibility(View.INVISIBLE);
         btnAcceso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //barraProgreso.setVisibility(View.VISIBLE);
+                barraProgreso.setVisibility(View.VISIBLE);
                 btnAcceso.setVisibility(View.INVISIBLE);
                 btnRegistro.setVisibility(View.INVISIBLE);
-                //missPass.setVisibility(View.INVISIBLE);
-
 
                 final String idUsuario = nombreUsuario.getText().toString().trim();
                 final String contraseniaUsuario = contraseña.getText().toString().trim();
 
-
-
                 if (idUsuario.isEmpty() || contraseniaUsuario.isEmpty()) {
-                    showMessage("Verifica los datos introducidos");
-                    //barraProgreso.setVisibility(View.INVISIBLE);
+                    showMessage("No has intorudico tus datos correctamente, vuelve a intentarlo");
+                    barraProgreso.setVisibility(View.INVISIBLE);
                     btnAcceso.setVisibility(View.VISIBLE);
                     btnRegistro.setVisibility(View.VISIBLE);
-                    acceder(idUsuario, contraseniaUsuario);
                 } else {
                     acceder(idUsuario, contraseniaUsuario);
                 }
@@ -107,7 +106,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    //barraProgreso.setVisibility(View.VISIBLE);
+                    barraProgreso.setVisibility(View.VISIBLE);
                     btnAcceso.setVisibility(View.INVISIBLE);
                     btnRegistro.setVisibility(View.INVISIBLE);
                     actualizarUsuario();
@@ -143,7 +142,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private void iniciarDeNuevo() {
         startActivity(restart);
-        finish();
     }
 
     @Override
