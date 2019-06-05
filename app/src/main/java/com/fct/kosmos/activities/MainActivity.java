@@ -39,16 +39,6 @@ public class MainActivity extends AppCompatActivity {
         imagen.startAnimation(anim2);
         openApp(true);
 
-
-       /*
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent homeIntent = new Intent(MainActivity.this, WelcomeActivity.class);
-                startActivity(homeIntent);
-                finish();
-            }
-        },SPLASH_TIME_OUT);*/
     }
 
     private void openApp(boolean locationPermission) {

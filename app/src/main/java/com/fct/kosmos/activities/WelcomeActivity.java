@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.fct.kosmos.R;
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -28,6 +29,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private Button btnSkip;
     private Button btnNext;
     private MyPagerAdapter pagerAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class WelcomeActivity extends AppCompatActivity {
         layoutDot = findViewById(R.id.dotLayout);
         btnNext = findViewById(R.id.btn_next);
         btnSkip = findViewById(R.id.btn_skip);
+
 
         //When user press skip, start Main Activity
         btnSkip.setOnClickListener(new View.OnClickListener() {
