@@ -31,7 +31,7 @@ import android.widget.TextView;
 
 public class HomeLogIn extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    //BALBLALBA
     FirebaseUser usuarioActual;
     private FirebaseAuth mAuth;
 
