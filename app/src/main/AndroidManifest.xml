@@ -6,6 +6,12 @@
          De lectura externa
     -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--
+      Permisos:
+           De camara y internet
+      -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,14 +20,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".DetalleProductoActivity" />
+        <activity android:name=".AdministrarActivity" />
         <activity
             android:name=".SubMenu"
-            android:label="@string/title_activity_sub_menu"></activity>
+            android:label="@string/title_activity_sub_menu" />
         <activity
             android:name=".HomeLogIn"
             android:label="@string/title_activity_home_log_in"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.WelcomeActivity" />
+        <activity android:name=".jin.AltaActivity" />
+        <activity android:name=".jin.ModificacionActivity" />
+        <activity android:name=".jin.BorradoActivity" />
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.MainActivity">
@@ -31,6 +42,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".scannerJIN.ScannerUnoActivity"
+            android:theme="@style/AppOverlayTheme" />
     </application>
 
 </manifest>

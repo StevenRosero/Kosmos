@@ -32,4 +32,18 @@
     <string name="bt_alta_eventos">Alta</string>
     <string name="eliminar">Eliminar</string>
     <string name="modificar">Modificar</string>
+
+    <!--primer sql -->
+    <string name="btn_alta">Alta Contacto</string>
+    <string name="btn_consulta">Consulta Contactos</string>
+    <string name="btn_modifica">Modifica Contacto</string>
+    <string name="btn_borra">Elimina Contacto</string>
+    <string name="et_nombre">Nombre Contacto</string>
+    <string name="et_email">Email</string>
+    <string name="btn_guardar">Guardar</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_volver">Volver</string>
+    <string name="et_id_hint">Introduce un id</string>
+    <string name="btn_buscar">Buscar</string>
+    <string name="btn_guardar_b">Eliminar</string>
 </resources>
