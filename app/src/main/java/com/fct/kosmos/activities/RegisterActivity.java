@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.fct.kosmos.R;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,7 +33,7 @@ import com.google.firebase.storage.UploadTask;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    ImageView imgUsuario;
+    private LottieAnimationView imgUsuario, loadingProgress;
     static int PreqCode = 1;
     static int REQUESCODE = 1;
     Uri pickedUmgUri;
@@ -52,9 +53,9 @@ public class RegisterActivity extends AppCompatActivity {
         userName = findViewById(R.id.regName);
         userPassword = findViewById(R.id.regPass1);
         userPassword2 = findViewById(R.id.regPass2);
-        //loadingProgress = findViewById(R.id.regProBar);
-        //Iniciar el activity
-        //loadingProgress.setVisibility(View.INVISIBLE);//para que nose vea la principiio
+        loadingProgress = findViewById(R.id.regProBar);
+
+        loadingProgress.setVisibility(View.INVISIBLE);//para que nose vea la principiio
 
         btnRegistrarse = findViewById(R.id.btnRegistrar);
 
@@ -67,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 btnRegistrarse.setVisibility(View.INVISIBLE);
-                //loadingProgress.setVisibility(View.VISIBLE);
+                loadingProgress.setVisibility(View.VISIBLE);
                 final String email = userEmail.getText().toString();
                 final String name = userName.getText().toString();
                 final String paswd1 = userPassword.getText().toString();
@@ -79,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     showMessage("Porfa escribe las dos contraseñas iguales");
                     btnRegistrarse.setVisibility(View.VISIBLE);
-                    //loadingProgress.setVisibility(View.INVISIBLE);
+                    loadingProgress.setVisibility(View.INVISIBLE);
 
                 }else{
                     //si todo va bien se procede a pasar losdatos
@@ -117,13 +118,16 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             showMessage("Cuenta creada");
-                            updateToUserInfo(name,pickedUmgUri,mAuth.getCurrentUser());
+                            /*FirebaseUser user = mAuth.getCurrentUser();
+                            updateToUserInfo(name,pickedUmgUri,user);
+                            mAuth = null;
+                            user.sendEmailVerification();*/
                             updateUri();
 
                         } else {
                             showMessage("No se ha podido crear" + task.getException().getMessage());
-                            btnRegistrarse.setVisibility(View.INVISIBLE);
-                            //loadingProgress.setVisibility(View.INVISIBLE);
+                            btnRegistrarse.setVisibility(View.VISIBLE);
+                            loadingProgress.setVisibility(View.INVISIBLE);
 
                         }
                     }

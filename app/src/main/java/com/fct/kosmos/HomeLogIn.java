@@ -1,5 +1,6 @@
 package com.fct.kosmos;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -28,12 +29,15 @@ import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.net.URL;
+
 
 public class HomeLogIn extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    FirebaseUser usuarioActual;
+    private String current_mail, currentUserName;
     private FirebaseAuth mAuth;
+    Uri currenImg;
 
     TextView navNombreUsuario;
     TextView navUsuarioEmail;
@@ -63,9 +67,7 @@ public class HomeLogIn extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        //Init Firebase
-        mAuth = FirebaseAuth.getInstance();
-        usuarioActual = mAuth.getCurrentUser();
+
 
         updateNavCabecero();
 
@@ -73,6 +75,8 @@ public class HomeLogIn extends AppCompatActivity
     }
 
     private void updateNavCabecero() {
+
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
@@ -82,10 +86,31 @@ public class HomeLogIn extends AppCompatActivity
         navUsuarioEmail = actualizarCabecero.findViewById(R.id.navUsuarioEmail);
         navUsuarioImagen = actualizarCabecero.findViewById(R.id.navUsuarioImgPerfil);
 
+        //Init Firebase
+        FirebaseUser userFirebase = FirebaseAuth.getInstance().getCurrentUser();
 
-        navNombreUsuario.setText(usuarioActual.getDisplayName());
-        navUsuarioEmail.setText(usuarioActual.getEmail());
-        Glide.with(this).load(usuarioActual.getPhotoUrl()).into(navUsuarioImagen);
+        /*if (userFirebase != null) {
+            for (Usuario aux : listaUsuarios) {
+                Log.e("usuari", aux.getUid());
+                if (aux.getUid().equals(userFirebase.getUid())) {
+                    Glide.with(User_Profile_Activity.this).load(aux.getUrlFoto()).into(ivFoto);
+                    tvNombre.setText(aux.getNombre_completo());
+                    tvFecha.setText(aux.getFechaNac());
+                    tvDescripcion.setText(aux.getDescripcion());
+                    URL = aux.getUrlFoto();
+                    dbr.removeEventListener(cel);
+                }
+            }
+        }*/
+
+        current_mail = userFirebase.getEmail();
+        currentUserName = userFirebase.getDisplayName();
+        currenImg = userFirebase.getPhotoUrl();
+
+        navNombreUsuario.setText(currentUserName);
+        navUsuarioEmail.setText(current_mail);
+
+        Glide.with(this).load(currenImg).into(navUsuarioImagen);
     }
 
     @Override
