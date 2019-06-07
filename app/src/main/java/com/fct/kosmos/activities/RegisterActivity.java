@@ -109,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-
+    //fxvfd
     private void CreateUserAccount(final String name, String email, String paswd1) {
 
         mAuth.createUserWithEmailAndPassword(email,paswd1).addOnCompleteListener(
