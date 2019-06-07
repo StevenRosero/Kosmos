@@ -6,22 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".jin.ConsultaActivity">
+    tools:context=".view.ui.CatalogActivity">
 
-    <LinearLayout
-        android:id="@+id/llV"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:paddingTop="70dp">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvContactos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="70dp">
-
-        </android.support.v7.widget.RecyclerView>
-
-    </LinearLayout>
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

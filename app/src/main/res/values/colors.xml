@@ -4,4 +4,13 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="actionbar_opacity">#33000000</color>
+
+    <!-- Primary color for the editor -->
+    <color name="editorColorPrimary">#2D3640</color>
+
+    <!-- Primary dark color for the editor -->
+    <color name="editorColorPrimaryDark">#394450</color>
+
+    <!-- Color for product quantity of every item in the list view -->
+    <color name="quantity_circle_color">#69F0AE</color>
 </resources>
