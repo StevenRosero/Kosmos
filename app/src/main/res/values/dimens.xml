@@ -30,6 +30,7 @@
     <!-- Dimensions of ImageView for product image -->
     <dimen name="product_image_view_dims">120dp</dimen>
 
+<resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>

@@ -1,0 +1,709 @@
+Index: app/src/main/java/com/fct/kosmos/javabeans/Productos.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/fct/kosmos/javabeans/Productos.java	(revision 8d23b241116cf9bf43c0fdfe710b3e8384608cd5)
++++ app/src/main/java/com/fct/kosmos/javabeans/Productos.java	(date 1558347946748)
+@@ -13,11 +13,11 @@
+     private float precio;
+     private Date fecha;
+     private int cantidad;
+-    private transient Bitmap imagen;
++    private byte[] imagen;
+ 
+     public Productos() {}
+ 
+-    public Productos(String nombre, String descripcion, float precio, Date fecha, int cantidad, Bitmap imagen) {
++    public Productos(String nombre, String descripcion, float precio, Date fecha, int cantidad, byte[] imagen) {
+         this.nombre = nombre;
+         this.descripcion = descripcion;
+         this.precio = precio;
+@@ -26,7 +26,7 @@
+         this.imagen = imagen;
+     }
+ 
+-    public Productos(long id, String nombre, String descripcion, float precio, Date fecha, int cantidad, Bitmap imagen) {
++    public Productos(long id, String nombre, String descripcion, float precio, Date fecha, int cantidad, byte[] imagen) {
+         this.id = id;
+         this.nombre = nombre;
+         this.descripcion = descripcion;
+@@ -84,11 +84,11 @@
+         this.cantidad = cantidad;
+     }
+ 
+-    public Bitmap getImagen() {
++    public byte[] getImagen() {
+         return imagen;
+     }
+ 
+-    public void setImagen(Bitmap imagen) {
++    public void setImagen(byte[] imagen) {
+         this.imagen = imagen;
+     }
+ }
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- build.gradle	(revision 8d23b241116cf9bf43c0fdfe710b3e8384608cd5)
++++ build.gradle	(date 1558339601370)
+@@ -7,7 +7,7 @@
+         
+     }
+     dependencies {
+-        classpath 'com.android.tools.build:gradle:3.2.1'
++        classpath 'com.android.tools.build:gradle:3.4.0'
+         
+         // NOTE: Do not place your application dependencies here; they belong
+         // in the individual module build.gradle files
+Index: app/src/main/java/com/fct/kosmos/utilities/Util.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/fct/kosmos/utilities/Util.java	(revision 8d23b241116cf9bf43c0fdfe710b3e8384608cd5)
++++ app/src/main/java/com/fct/kosmos/utilities/Util.java	(date 1558807118854)
+@@ -2,8 +2,14 @@
+ 
+ import android.graphics.Bitmap;
+ import android.graphics.BitmapFactory;
++import android.graphics.drawable.BitmapDrawable;
++import android.util.Base64;
++import android.util.Log;
++import android.widget.ImageView;
+ 
+ import java.io.ByteArrayOutputStream;
++import java.io.IOException;
++import java.nio.ByteBuffer;
+ import java.text.DecimalFormat;
+ import java.text.ParseException;
+ import java.text.SimpleDateFormat;
+@@ -13,34 +19,23 @@
+ 
+     public static String formatearFecha(Date fecha) {
+ 
+-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
++        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+         return sdf.format(fecha);
+     }
+ 
+     public static Date parsearFecha(String fecha) throws ParseException {
+ 
+-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
++        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+         return sdf.parse(fecha);
+     }
+ 
+-    /**
+-     * Convierte un Bitmap en un array de bytes
+-     * @param bitmap
+-     * @return
+-     */
+-    public static byte[] getBytes(Bitmap bitmap) {
+-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
+-        return bos.toByteArray();
+-    }
+ 
+-    /**
+-     * Convierte un array de bytes en un objeto Bitmap
+-     * @param bytes
+-     * @return
+-     */
+-    public static Bitmap getBitmap(byte[] bytes) {
++    public static byte[] imageViewToByte(ImageView image) {
++        Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
++        ByteArrayOutputStream stream = new ByteArrayOutputStream();
++        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
++        byte[] byteArray = stream.toByteArray();
++        return byteArray;
++    }
+ 
+-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+-    }
+ }
+Index: app/src/main/res/layout/activity_alta_productos.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_alta_productos.xml	(revision 8d23b241116cf9bf43c0fdfe710b3e8384608cd5)
++++ app/src/main/res/layout/activity_alta_productos.xml	(date 1558734842145)
+@@ -6,17 +6,15 @@
+     android:layout_height="match_parent"
+     tools:context=".activities.AltaProductos">
+ 
+-    <ImageButton
+-        android:id="@+id/ibImagen"
++    <ImageView
++        android:id="@+id/ivImagen"
+         android:layout_width="112dp"
+         android:layout_height="114dp"
+         android:layout_marginStart="8dp"
+-        android:layout_marginLeft="8dp"
+         android:layout_marginTop="44dp"
+         android:layout_marginEnd="8dp"
+-        android:layout_marginRight="8dp"
++        android:background="@mipmap/ic_launcher"
+         android:scaleType="fitCenter"
+-        android:src="@mipmap/ic_launcher_round"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.498"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -28,16 +26,13 @@
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="8dp"
+-        android:layout_marginLeft="8dp"
+-        android:layout_marginTop="8dp"
+         android:layout_marginEnd="8dp"
+-        android:layout_marginRight="8dp"
+         android:ems="10"
+         android:hint="@string/lb_nombre"
+         android:inputType="textPersonName"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/ibImagen" />
++        app:layout_constraintTop_toBottomOf="@+id/ivImagen" />
+ 
+     <EditText
+         android:id="@+id/etDescripcion"
+@@ -138,4 +133,17 @@
+         app:layout_constraintTop_toBottomOf="@+id/etCantidad"
+         app:layout_constraintVertical_bias="0.106" />
+ 
++    <Button
++        android:id="@+id/btnEscogerImagen"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="8dp"
++        android:layout_marginEnd="8dp"
++        android:layout_marginBottom="8dp"
++        android:text="Button"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/etCantidad" />
++
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision 8d23b241116cf9bf43c0fdfe710b3e8384608cd5)
++++ .idea/gradle.xml	(date 1558346273991)
+@@ -3,6 +3,9 @@
+   <component name="GradleSettings">
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
++        <compositeConfiguration>
++          <compositeBuild compositeDefinitionSource="SCRIPT" />
++        </compositeConfiguration>
+         <option name="distributionType" value="DEFAULT_WRAPPED" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+         <option name="modules">
+Index: app/src/main/java/com/fct/kosmos/activities/AltaProductos.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/fct/kosmos/activities/AltaProductos.java	(revision 8d23b241116cf9bf43c0fdfe710b3e8384608cd5)
++++ app/src/main/java/com/fct/kosmos/activities/AltaProductos.java	(date 1558808706274)
+@@ -1,7 +1,9 @@
+ package com.fct.kosmos.activities;
+ 
++import android.Manifest;
+ import android.app.Activity;
+ import android.content.Intent;
++import android.content.pm.PackageManager;
+ import android.database.Cursor;
+ import android.graphics.Bitmap;
+ import android.graphics.BitmapFactory;
+@@ -13,74 +15,193 @@
+ import android.widget.Button;
+ import android.widget.EditText;
+ import android.widget.ImageButton;
++import android.widget.ImageView;
+ import android.widget.Toast;
++
++import androidx.annotation.NonNull;
++import androidx.core.app.ActivityCompat;
++
+ import com.fct.kosmos.R;
+ import com.fct.kosmos.database.ConexionSQLiteHelper;
+ import com.fct.kosmos.javabeans.Productos;
+ import com.fct.kosmos.utilities.Util;
++
++import java.io.ByteArrayOutputStream;
++import java.io.FileNotFoundException;
++import java.io.InputStream;
+ import java.text.ParseException;
+ 
+-public class AltaProductos extends Activity implements View.OnClickListener {
++import static com.fct.kosmos.utilities.Util.imageViewToByte;
++
++public class AltaProductos extends Activity  {
+ 
+     private static final int FOTO_PRODUCTO = 1;
+     private String accion;
+     private long idProducto;
+ 
+     EditText etNombre, etDescripcion, etPrecio, etFecha, etCantidad;
+-    ImageButton ibImagen;
++    Button escogerImagen, btnAlta, btnCancelar;
++    ImageView imageView;
++
++    ConexionSQLiteHelper db;
++
++    final int REQUEST_GALLERY_CODE = 999;
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_alta_productos);
+ 
+-        Button btAlta = findViewById(R.id.btAlta);
+-        btAlta.setOnClickListener(this);
+-        Button btCancelar = findViewById(R.id.btCancelar);
+-        btCancelar.setOnClickListener(this);
+-        ImageButton ibImagen = findViewById(R.id.ibImagen);
+-        ibImagen.setOnClickListener(this);
+-
+-        accion = getIntent().getStringExtra("accion");
+-        if (accion.equals("modificar")) {
+-            Productos producto = (Productos) getIntent().getSerializableExtra("producto");
+-            Bitmap imagenProducto = Util.getBitmap(getIntent().getByteArrayExtra("imagen"));
+-            rellenarDatos(producto, imagenProducto);
+-            btAlta.setText(R.string.guardar);
+-        }
+-    }
+-
+-    //Función de relleno de datos para enviar a la BBDD con el id
+-    private void rellenarDatos(Productos producto, Bitmap imagenProducto) {
+         etNombre = findViewById(R.id.etNombre);
+         etDescripcion = findViewById(R.id.etDescripcion);
+         etPrecio = findViewById(R.id.etPrecio);
+         etFecha = findViewById(R.id.etFecha);
+         etCantidad = findViewById(R.id.etCantidad);
+-        ibImagen = findViewById(R.id.ibImagen);
++        imageView = (ImageView) findViewById(R.id.ivImagen);
++
++        // Asignarle al boton que añada los datos
++        btnAlta= findViewById(R.id.btAlta);
++        btnAlta.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                try {
++                    // Insertar ek nuevo producto
++                    db.insertNewProducto(
++                            etNombre.getText().toString().trim(),
++                            etDescripcion.getText().toString().trim(),
++                            etPrecio.getText().toString().trim(),
++                            etFecha.getText().toString().trim(),
++                            etCantidad.getText().toString().trim(),
++                            imageViewToByte(imageView)
++                    );
++
++                    Toast.makeText(getApplicationContext(), "¡ Añadido correctamente!", Toast.LENGTH_SHORT).show();
++                    // Funcion de vaciar los parámetros
++                    limpiarParametros();
++                }catch(Exception e){
++                    e.printStackTrace();
++                }
++            }
++        });
++        btnCancelar= findViewById(R.id.btCancelar);
++        btnCancelar.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                onBackPressed();
++            }
++        });
++
++        escogerImagen = findViewById(R.id.btnEscogerImagen);
++
++        // Asignarle al boton que recoja las imagenes del almacenamiento interno
++        escogerImagen.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                ActivityCompat.requestPermissions(
++                        AltaProductos.this,
++                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
++                        REQUEST_GALLERY_CODE
++                );
++            }
++        });
++    }
++
++    private void limpiarParametros() {
++        etNombre.setText("");
++        etDescripcion.setText("");
++        etPrecio.setText("");
++        etFecha.setText("");
++        etCantidad.setText("");
++        // Habría que establecer un icono para la imagen por defecto
++        imageView.setImageResource(R.mipmap.ic_launcher);
++    }
++
++
++    // Recoge la respuesta del permiso de elegir una imagen
++    @Override
++    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
++
++        if (requestCode == REQUEST_GALLERY_CODE) {
++            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
++                // MINUTO: 7:51 FALTA CAMBIAR LA VERSION DE LA BBDD QUE SE EJECUTA
++                Intent intent = new Intent(Intent.ACTION_PICK);
++                intent.setType("image/*");
++                startActivityForResult(intent, REQUEST_GALLERY_CODE);
++            } else {
++                Toast.makeText(getApplicationContext(), "No tienes permisos de acceso, intentalo de nuevo", Toast.LENGTH_SHORT).show();
++            }
++            return;
++        }
++
++
++        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
++    }
++
++    // Si la respuesta sale ok recoge la imagen y se la asigna a el ImageView
++    @Override
++    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
++
++        if (requestCode == REQUEST_GALLERY_CODE && resultCode == RESULT_OK && data != null) {
++
++            Uri uri = data.getData();
++
++            try {
++                InputStream inputStream = getContentResolver().openInputStream(uri);
++
++                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
++
++                imageView.setImageBitmap(bitmap);
++            } catch (FileNotFoundException e) {
++                e.printStackTrace();
++            }
++
++        }
++
++
++        super.onActivityResult(requestCode, resultCode, data);
++    }
++
++}
++
++
+ 
+-        etNombre.setText(producto.getNombre());
+-        etDescripcion.setText(producto.getDescripcion());
+-        etPrecio.setText(String.valueOf(producto.getPrecio()));
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++/*      LO ANTERIOR
++
++
++    // Para formatear la fecha deberia valer esto
+         etFecha.setText(Util.formatearFecha(producto.getFecha()));
+-        etCantidad.setText(producto.getCantidad());
+-        ibImagen.setImageBitmap(imagenProducto);
+-
+-        idProducto = producto.getId();
+-    }
+ 
+     @Override
+     public void onClick(View v) {
+ 
+         switch (v.getId()) {
+             case R.id.btAlta:
+-                EditText etNombreR = findViewById(R.id.etNombre);
+-                EditText etDescripcionR = findViewById(R.id.etDescripcion);
+-                EditText etPrecioR = findViewById(R.id.etPrecio);
+-                EditText etFechaR = findViewById(R.id.etFecha);
+-                EditText etCantidadR = findViewById(R.id.etCantidad);
+-                ImageButton ibImagenR = findViewById(R.id.ibImagen);
+ 
+-                //Comprobacion de los parametros de cantidad y precio --Habría que añadir más
++
++                //TODO: Comprobacion de los parametros de cantidad y precio --Habría que añadir más
+                 try {
+                     if (etPrecioR.getText().toString().equals("")) {
+                         Toast.makeText(this, R.string.mensaje_precio,
+@@ -90,7 +211,7 @@
+ 
+                     if (etCantidadR.getText().toString().equals(""))
+                         etCantidadR.setText("0");
+-                    // Si todo va ok, habria que meter más comprobaciones en un bucle
++                    // todo va ok, habria que meter más comprobaciones en un bucle
+                     //Relleno de la BBDD
+                     Productos producto = new Productos();
+                     producto.setNombre(etNombreR.getText().toString());
+@@ -143,35 +264,8 @@
+         }
+     }
+ 
+-    @Override
+-    protected void onActivityResult( int requestCode, int resultCode, Intent data){
+-
+-        if ((resultCode == RESULT_OK) && (data != null)) {
+-
+-            switch (requestCode) {
+-                case FOTO_PRODUCTO:
+-                    // Obtiene el Uri de la imagen seleccionada por el usuario
+-                    Uri imagenSeleccionada = data.getData();
+-                    String[] ruta = {MediaStore.Images.Media.DATA};
+-
+-                    // Realiza una consulta a la galería de imágenes solicitando la imagen seleccionada
+-                    Cursor cursor = getContentResolver().query(imagenSeleccionada, ruta, null, null, null);
+-                    cursor.moveToFirst();
+-
+-                    // Obtiene la ruta a la imagen
+-                    int indice = cursor.getColumnIndex(ruta[0]);
+-                    String picturePath = cursor.getString(indice);
+-                    cursor.close();
+-
+-                    // Carga la imagen en una vista ImageView que se encuentra en
+-                    // en layout de la Activity actual
+-                    ImageButton ibImagen = findViewById(R.id.ibImagen);
+-                    ibImagen.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+-                    break;
+-                default:
+-                    break;
+-            }
+-        }
+-    }
++
++
+ 
+ }
++*/
+Index: app/src/main/java/com/fct/kosmos/adapters/ProductosAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/fct/kosmos/adapters/ProductosAdapter.java	(revision 8d23b241116cf9bf43c0fdfe710b3e8384608cd5)
++++ app/src/main/java/com/fct/kosmos/adapters/ProductosAdapter.java	(date 1558555160431)
+@@ -1,6 +1,7 @@
+ package com.fct.kosmos.adapters;
+ 
+ import android.content.Context;
++import android.graphics.Bitmap;
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.view.ViewGroup;
+@@ -15,6 +16,7 @@
+ 
+ public class ProductosAdapter extends BaseAdapter {
+ 
++    Bitmap photobmp;
+     private LayoutInflater inflater;
+     private int idLayout;
+     private List<Productos> productos;
+@@ -54,7 +56,7 @@
+         }
+ 
+         Productos producto = productos.get(posicion);
+-        holder.ivImagen.setImageBitmap(producto.getImagen());
++        //holder.ivImagen.setImageBitmap(producto.getImagen());
+         holder.tvNombre.setText(producto.getNombre());
+         holder.tvCantidad.setText(producto.getCantidad());
+         //holder.tvPrecio.setText(Util.formatearMoneda(evento.getPrecio()));
+Index: app/src/main/java/com/fct/kosmos/utilities/Utilities.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/fct/kosmos/utilities/Utilities.java	(revision 8d23b241116cf9bf43c0fdfe710b3e8384608cd5)
++++ app/src/main/java/com/fct/kosmos/utilities/Utilities.java	(date 1558808519577)
+@@ -5,7 +5,7 @@
+ 
+ public class Utilities {
+     //Constantes campos tabla productos
+-    public static final String TABLA_PRODUCTOS=" producto ¡";
++    public static final String TABLA_PRODUCTOS=" productos ";
+     public static final String CAMPO_ID_PRO = BaseColumns._ID;
+     public static final String CAMPO_NOMBRE="nombre ";
+     public static final String CAMPO_DESCRIPCION="descripcion ";
+@@ -14,16 +14,14 @@
+     public static final String CAMPO_CANTIDAD="cantidad ";
+     public static final String CAMPO_IMAGEN="imagen";
+ 
+-
+-    //REFERENCIA AL ALMACENAMIENTO DE LOS CODIGOS QR
+     //Creación de la tabla PRODUCTOS
+     public static final String CREAR_TABLA_PRODUCTOS = "CREATE TABLE" +
+-            ""+TABLA_PRODUCTOS+" ("+CAMPO_ID_PRO+ " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, "
++            " "+TABLA_PRODUCTOS+" ("+CAMPO_ID_PRO+ " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, "
+             +CAMPO_NOMBRE+" TEXT NOT NULL, "
+             +CAMPO_DESCRIPCION+" TEXT NOT NULL, "
+-            +CAMPO_PRECIO + " REAL NOT NULL, "
++            +CAMPO_PRECIO + " TEXT NOT NULL, "
+             +CAMPO_FECHA + " TEXT NOT NULL, "
+-            +CAMPO_CANTIDAD + " INTEGER NOT NULL, "
++            +CAMPO_CANTIDAD + " TEXT NOT NULL, "
+             +CAMPO_IMAGEN+ " BLOB)";
+ 
+ /*
+Index: app/src/main/java/com/fct/kosmos/activities/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/fct/kosmos/activities/MainActivity.java	(revision 8d23b241116cf9bf43c0fdfe710b3e8384608cd5)
++++ app/src/main/java/com/fct/kosmos/activities/MainActivity.java	(date 1558734140964)
+@@ -64,7 +64,7 @@
+         getMenuInflater().inflate(R.menu.menu_modify_delete_producto, menu);
+     }
+ 
+-    @Override
++   /* @Override
+     public boolean onContextItemSelected(MenuItem item) {
+ 
+         AdapterView.AdapterContextMenuInfo menuInfo =
+@@ -88,7 +88,7 @@
+             default:
+                 return false;
+         }
+-    }
++    }*/
+ 
+     @Override
+     public boolean onCreateOptionsMenu(Menu menu) {
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision 8d23b241116cf9bf43c0fdfe710b3e8384608cd5)
++++ app/build.gradle	(date 1559041224839)
+@@ -4,8 +4,8 @@
+     compileSdkVersion 28
+     defaultConfig {
+         applicationId "com.fct.kosmos"
+-        minSdkVersion 15
+-        targetSdkVersion 28
++        minSdkVersion 21
++        targetSdkVersion 26
+         versionCode 1
+         versionName "1.0"
+         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+Index: app/src/main/java/com/fct/kosmos/database/ConexionSQLiteHelper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/fct/kosmos/database/ConexionSQLiteHelper.java	(revision 8d23b241116cf9bf43c0fdfe710b3e8384608cd5)
++++ app/src/main/java/com/fct/kosmos/database/ConexionSQLiteHelper.java	(date 1558812785039)
+@@ -5,6 +5,7 @@
+ import android.database.Cursor;
+ import android.database.sqlite.SQLiteDatabase;
+ import android.database.sqlite.SQLiteOpenHelper;
++import android.database.sqlite.SQLiteStatement;
+ 
+ import com.fct.kosmos.javabeans.Productos;
+ import com.fct.kosmos.utilities.Util;
+@@ -20,9 +21,9 @@
+ public class ConexionSQLiteHelper extends SQLiteOpenHelper {
+ 
+     // Versión de la base de datos
+-    private static final int DATABASE_VERSION = 1;
++    private static final int DATABASE_VERSION = 2;
+     // Nombre de la base de datos
+-    private static final String DATABASE_NAME = "kosmosdb.db";
++    private static final String DATABASE_NAME = "kosmosdb.sqlite";
+ 
+     //Definición del SQLiteHelper con version y nombre
+     public ConexionSQLiteHelper(Context context) {
+@@ -44,7 +45,7 @@
+         onCreate(db);
+     }
+ 
+-    // Creación de nuevos Productos
++/*    // Creación de nuevos Productos
+     public void nuevoProducto(Productos producto) {
+ 
+         SQLiteDatabase db = getWritableDatabase();
+@@ -60,7 +61,7 @@
+ 
+         db.insertOrThrow(Utilities.TABLA_PRODUCTOS, null, values);
+         db.close();
+-    }
++    }*/
+ 
+     // Eliminación de Productos
+     public void eliminarProductos(Productos producto) {
+@@ -83,7 +84,8 @@
+         values.put(Utilities.CAMPO_PRECIO, producto.getPrecio());
+         values.put(Utilities.CAMPO_FECHA, Util.formatearFecha(producto.getFecha()));
+         values.put(Utilities.CAMPO_CANTIDAD, producto.getCantidad());
+-        values.put(Utilities.CAMPO_IMAGEN, Util.getBytes(producto.getImagen()));
++        //
++        // values.put(Utilities.CAMPO_IMAGEN, Util.getBytes(producto.getImagen()));
+ 
+         String[] args = {String.valueOf(producto.getId())};
+         db.update(Utilities.TABLA_PRODUCTOS, values, _ID + " = ?", args);
+@@ -115,7 +117,7 @@
+                 producto.setFecha(new Date());
+             }
+             producto.setCantidad(cursor.getInt(5));
+-            producto.setImagen(Util.getBitmap(cursor.getBlob(6)));
++            //producto.setImagen(Util.getBitmap(cursor.getBlob(6)));
+             productos.add(producto);
+         }
+ 
+@@ -126,4 +128,30 @@
+         return null;
+     }
+ 
++
++    public void queryData(String sql){
++        SQLiteDatabase database = getWritableDatabase();
++        database.execSQL(sql);
++    }
++
++    // Prueba nuevos paramatros para las imagenes
++    public void insertNewProducto(String nombre, String descripcion, String precio, String fecha, String cantidad, byte[] imagen){
++        SQLiteDatabase db = getWritableDatabase();
++        String queryInsertSQL = "INSERT INTO productos VALUES(NULL, ?, ?, ?, ?, ?, ?)";
++
++        SQLiteStatement statement = db.compileStatement(queryInsertSQL);
++        statement.clearBindings();
++
++        statement.bindString(1, nombre);
++        statement.bindString(2, descripcion);
++        statement.bindString( 3, precio);
++        statement.bindString(4, fecha);
++        statement.bindString(5, cantidad);
++        statement.bindBlob(6, imagen);
++
++        statement.executeInsert();
++    }
++
++
++
+ }
